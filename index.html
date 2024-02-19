@@ -88,398 +88,403 @@ SOFTWARE.
   <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top mb-3">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top mb-3">
+  <div class="container-fluid">
       <span class="navbar-brand mb-0 h1">
         Ears Skin Manipulator edit by DearFox & Furrc
         <span id="version"></span>
       </span>
-      <form class="d-flex">
-        <button class="btn btn-sm btn-outline-secondary me-2" type="button" onclick="yaw += 180">yaw</button>
-        <button class="btn btn-sm btn-outline-secondary me-2" type="button" onclick="yaw = 45; pitch = 15; zoom = 65;">reset</button>
-        <button class="btn btn-sm btn-outline-secondary me-2" type="button" id="btnSwitch">theme</button>
-      </form>
-    </div>
-  </nav>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col">
-        <noscript>
-          <div class="card text-center mb-3">
-            <div class="card-header">
-              Dude
-            </div>
-            <div class="card-body">
-              <div class="card-text">
-                You must enable JavaScript to use the manipulator.
-              </div>
-            </div>
-          </div>
-        </noscript>
+    <form class="d-flex">
+      <button class="btn btn-sm btn-outline-secondary me-2" type="button" onclick="yaw += 180">yaw</button>
+      <button class="btn btn-sm btn-outline-secondary me-2" type="button" onclick="yaw = 45; pitch = 15; zoom = 65;">reset</button>
+      <button class="btn btn-sm btn-outline-secondary me-2" type="button" id="btnSwitch">theme</button>
+    </form>
+  </div>
+</nav>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <noscript>
         <div class="card text-center mb-3">
           <div class="card-header">
-            Vanilla Skin Customization
+            Dude
           </div>
           <div class="card-body">
-            <div class="btn-group mb-1" role="group">
-              <input type="checkbox" class="btn-check" id="slim-enabled" autocomplete="off" checked>
-              <label class="btn btn-outline-primary" for="slim-enabled">Slim Arms</label>
+            <div class="card-text">
+              You must enable JavaScript to use the manipulator.
             </div>
-            <div class="btn-group mb-1" role="group">
-              <input type="checkbox" class="btn-check" id="head2-enabled" autocomplete="off" checked>
-              <label class="btn btn-outline-primary" for="head2-enabled">Hat</label>
-
-              <input type="checkbox" class="btn-check" id="torso2-enabled" autocomplete="off" checked>
-              <label class="btn btn-outline-primary" for="torso2-enabled">Jacket</label>
-            </div>
-            <div class="btn-group mb-1" role="group">
-              <input type="checkbox" class="btn-check" id="left_arm2-enabled" autocomplete="off" checked>
-              <label class="btn btn-outline-primary" for="left_arm2-enabled">Left Sleeve</label>
-
-              <input type="checkbox" class="btn-check" id="right_arm2-enabled" autocomplete="off" checked>
-              <label class="btn btn-outline-primary" for="right_arm2-enabled">Right Sleeve</label>
-            </div>
-            <div class="btn-group mb-1" role="group">
-              <input type="checkbox" class="btn-check" id="left_leg2-enabled" autocomplete="off" checked>
-              <label class="btn btn-outline-primary" for="left_leg2-enabled">Left Pants Leg</label>
-
-              <input type="checkbox" class="btn-check" id="right_leg2-enabled" autocomplete="off" checked>
-              <label class="btn btn-outline-primary" for="right_leg2-enabled">Right Pants Leg</label>
-            </div>
-          </div>
-          <div class="card-footer">
-            Not stored in the skin. Only affects the render on the right.
           </div>
         </div>
-        <div class="card text-center mb-3">
-          <div class="card-body">
-            <p>
-              If you're new here, you should load a sample skin which will change to demonstrate any options you select below.
-              You can use this to learn where the regions for various features are, so you can add them to your skin.
-            </p>
-            <div class="input-group mb-3">
-              <label class="input-group-text" for="nickname">Get skin by nickname</label>
-              <input type="text" class="form-control" placeholder="nickname" aria-label="nickname" id="nickname">
-              <button class="btn btn-outline-secondary" type="button" id="nickname-skin-get">
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner-loading-skin" hidden></span>
-                Get
-              </button>
-            </div>
-            <div class="input-group mb-3">
-              <input type="file" class="form-control" id="skin-upload" accept="image/png,.png">
-              <button class="btn btn-outline-secondary" type="button" id="sample">Sample skin</button>
-            </div>
-            <canvas id="skin" class="tex mb-2" width="64" height="64"></canvas>
-            <br>
-            <div class="btn-group" role="group">
-              <button type="button" class="btn btn-outline-primary" onclick="saveCanvasAsImageFile('skin', 'Skin')">Download</button>
-              <button type="button" class="btn btn-outline-primary" onclick="saveSkinNoAlfalfaData()">Download no alfalfaData</button>
-              <button type="button" class="btn btn-outline-primary" onclick="saveAllToZip()">Save to ZIP</button>
-            </div>
+      </noscript>
+      <div class="card text-center mb-3">
+        <div class="card-header">
+          Skin Setup
+        </div>
+        <div class="card-body">
+          <p>
+            If you'd like to add ears parts to a vanilla skin, add it below and click "Sample Ears".<br/>
+            If you'd like to draw a full skin from scratch, click "Sample Skin" for a helpful template.
+          </p>
+          <div class="input-group mb-3">
+            <label class="input-group-text" for="nickname">Get skin by nickname</label>
+            <input type="text" class="form-control" placeholder="nickname" aria-label="nickname" id="nickname">
+            <button class="btn btn-outline-secondary" type="button" id="nickname-skin-get">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner-loading-skin" hidden></span>
+              Get
+            </button>
           </div>
-          <div class="card-footer">
-            This entire thing is client-sided. You're not actually uploading or downloading anything, those are just the words people are familiar with.
+          <div class="input-group mb-3">
+            <input type="file" class="form-control" id="skin-upload" accept="image/png,.png">
+            <button class="btn btn-outline-secondary" type="button" id="sample-preserve">Sample ears</button>
+            <button class="btn btn-outline-secondary" type="button" id="sample">Sample skin</button>
+          </div>
+          <canvas id="skin" class="tex mb-2" width="64" height="64"></canvas>
+          <br>
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-outline-primary" onclick="saveCanvasAsImageFile('skin', 'Skin')">Download</button>
+            <button type="button" class="btn btn-outline-primary" onclick="saveSkinNoAlfalfaData()">Download no alfalfaData</button>
+            <button type="button" class="btn btn-outline-primary" onclick="saveAllToZip()">Save to ZIP</button>
           </div>
         </div>
-        <div class="card text-center mb-3">
-          <div class="card-header">
-            <div class="form-check form-switch">
-              <input class="form-check-input float-start" type="checkbox" role="switch" id="ears-enabled" autocomplete="off">
-              <label class="form-check-label" for="ears-enabled">Ears Customization</label>
+        <div class="card-footer">
+          Once you're happy with your skin on the right, download it here and <a href="https://www.minecraft.net/en-us/msaprofile/mygames/editskin">upload it to Mojang</a>.
+        </div>
+      </div>
+      <div class="card text-center mb-3">
+        <div class="card-header">
+          <div class="form-check form-switch">
+            <input class="form-check-input float-start" type="checkbox" role="switch" id="ears-enabled" autocomplete="off">
+            <label class="form-check-label" for="ears-enabled">Ears Customization</label>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row g-2 mb-3">
+            <div class="col-md">
+              <div class="form-floating">
+                <select disabled class="form-select" id="ear-mode">
+                  <option selected value="red">None</option>
+                  <option value="blue">Above</option>
+                  <option value="green">Sides</option>
+                  <option value="purple2">Out</option>
+                  <option value="cyan">Around</option>
+                  <option value="orange">Floppy</option>
+                  <option value="pink">Cross</option>
+                  <option value="white">Tall</option>
+                  <option value="gray">Tall Cross</option>
+                  <option value="purple">Behind (old, prefer Out)</option>
+                </select>
+                <label for="ear-mode">Ear Mode</label>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="form-floating">
+                <select disabled class="form-select" id="ear-anchor">
+                  <option selected value="blue">Center</option>
+                  <option value="green">Front</option>
+                  <option value="red">Back</option>
+                </select>
+                <label for="ear-anchor">Ear Anchor</label>
+              </div>
             </div>
           </div>
-          <div class="card-body">
-            <div class="row g-2 mb-3">
-              <div class="col-md">
-                <div class="form-floating">
-                  <select disabled class="form-select" id="ear-mode">
-                    <option selected value="red">None</option>
-                    <option value="blue">Above</option>
-                    <option value="green">Sides</option>
-                    <option value="purple2">Out</option>
-                    <option value="cyan">Around</option>
-                    <option value="orange">Floppy</option>
-                    <option value="pink">Cross</option>
-                    <option value="white">Tall</option>
-                    <option value="gray">Tall Cross</option>
-                    <option value="purple">Behind (old, prefer Out)</option>
-                  </select>
-                  <label for="ear-mode">Ear Mode</label>
-                </div>
-              </div>
-              <div class="col-md">
-                <div class="form-floating">
-                  <select disabled class="form-select" id="ear-anchor">
-                    <option selected value="blue">Center</option>
-                    <option value="green">Front</option>
-                    <option value="red">Back</option>
-                  </select>
-                  <label for="ear-anchor">Ear Anchor</label>
-                </div>
+          <div class="form-floating mb-3">
+            <select disabled class="form-select" id="protrusions">
+              <option selected value="red">None</option>
+              <option value="green">Claws</option>
+              <option value="purple">Horn</option>
+              <option value="cyan">Claws &amp; Horn</option>
+            </select>
+            <label for="protrusions">Protrusions</label>
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col">
+              <div class="form-floating">
+                <select disabled class="form-select" id="tail-mode">
+                  <option selected value="red">None</option>
+                  <option value="blue">Down</option>
+                  <option value="green">Back</option>
+                  <option value="purple">Up</option>
+                  <option value="orange">Vertical</option>
+                </select>
+                <label for="tail-mode">Tail Mode</label>
               </div>
             </div>
-            <div class="form-floating mb-3">
-              <select disabled class="form-select" id="protrusions">
-                <option selected value="red">None</option>
-                <option value="green">Claws</option>
-                <option value="purple">Horn</option>
-                <option value="cyan">Claws &amp; Horn</option>
-              </select>
-              <label for="protrusions">Protrusions</label>
-            </div>
-            <div class="row g-2 mb-3">
-              <div class="col">
-                <div class="form-floating">
-                  <select disabled class="form-select" id="tail-mode">
-                    <option selected value="red">None</option>
-                    <option value="blue">Down</option>
-                    <option value="green">Back</option>
-                    <option value="purple">Up</option>
-                    <option value="orange">Vertical</option>
-                  </select>
-                  <label for="tail-mode">Tail Mode</label>
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-floating">
-                  <input disabled type="number" id="tail-segments" class="form-control" min="1" max="4" step="1" value="1">
-                  <label for="tail-segments">Tail Segments</label>
-                </div>
+            <div class="col">
+              <div class="form-floating">
+                <input disabled type="number" id="tail-segments" class="form-control" min="1" max="4" step="1" value="1">
+                <label for="tail-segments">Tail Segments</label>
               </div>
             </div>
-            <p class="card-text">Tail Bends</p>
-            <div class="row g-2 mb-2">
-              <div class="col">
-                <label for="tail-bend-0"></label><input type="range" class="form-range" id="tail-bend-0" value="0" min="-90" max="90" step="15" disabled>
-                <label id="tail-bend-0-angle">0°</label>
-              </div>
-              <div class="col">
-                <label for="tail-bend-1"></label><input type="range" class="form-range" id="tail-bend-1" value="0" min="-90" max="90" step="15" disabled>
-                <label id="tail-bend-1-angle">0°</label>
-              </div>
-              <div class="col">
-                <label for="tail-bend-2"></label><input type="range" class="form-range" id="tail-bend-2" value="0" min="-90" max="90" step="15" disabled>
-                <label id="tail-bend-2-angle">0°</label>
-              </div>
-              <div class="col">
-                <label for="tail-bend-3"></label><input type="range" class="form-range" id="tail-bend-3" value="0" min="-90" max="90" step="15" disabled>
-                <label id="tail-bend-3-angle">0°</label>
-              </div>
+          </div>
+          <p class="card-text">Tail Bends</p>
+          <div class="row g-2 mb-2">
+            <div class="col">
+              <label for="tail-bend-0"></label><input type="range" class="form-range" id="tail-bend-0" value="0" min="-90" max="90" step="15" disabled>
+              <label id="tail-bend-0-angle">0°</label>
             </div>
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="unlock-angles" autocomplete="off" disabled>
-              <label class="form-check-label float-start" for="unlock-angles">Unlock</label>
+            <div class="col">
+              <label for="tail-bend-1"></label><input type="range" class="form-range" id="tail-bend-1" value="0" min="-90" max="90" step="15" disabled>
+              <label id="tail-bend-1-angle">0°</label>
             </div>
-            <hr>
-            <p class="card-text">Snout</p>
-            <div class="row g-2 mb-2">
-              <div class="col">
-                <input type="range" class="form-range" id="snout-width" value="1" min="1" max="7" step="1" disabled>
-                <label for="snout-width">Width</label>
-              </div>
-              <div class="col">
-                <input type="range" class="form-range" id="snout-height" value="1" min="1" max="4" step="1" disabled>
-                <label for="snout-height">Height</label>
-              </div>
-              <div class="col">
-                <input type="range" class="form-range" id="snout-depth" value="1" min="1" max="6" step="1" disabled>
-                <label for="snout-depth">Length</label>
-              </div>
-              <div class="col">
-                <input type="range" class="form-range" id="snout-offset" value="0" min="0" max="8" step="1" disabled>
-                <label for="snout-offset">Offset</label>
-              </div>
+            <div class="col">
+              <label for="tail-bend-2"></label><input type="range" class="form-range" id="tail-bend-2" value="0" min="-90" max="90" step="15" disabled>
+              <label id="tail-bend-2-angle">0°</label>
             </div>
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="snout" autocomplete="off" disabled>
-              <label class="form-check-label float-start" for="snout">Enable</label>
-              <span id="snout-size" class="float-end" style="visibility: hidden">
+            <div class="col">
+              <label for="tail-bend-3"></label><input type="range" class="form-range" id="tail-bend-3" value="0" min="-90" max="90" step="15" disabled>
+              <label id="tail-bend-3-angle">0°</label>
+            </div>
+          </div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="unlock-angles" autocomplete="off" disabled>
+            <label class="form-check-label float-start" for="unlock-angles">Unlock</label>
+          </div>
+          <hr>
+          <p class="card-text">Snout</p>
+          <div class="row g-2 mb-2">
+            <div class="col">
+              <input type="range" class="form-range" id="snout-width" value="1" min="1" max="7" step="1" disabled>
+              <label for="snout-width">Width</label>
+            </div>
+            <div class="col">
+              <input type="range" class="form-range" id="snout-height" value="1" min="1" max="4" step="1" disabled>
+              <label for="snout-height">Height</label>
+            </div>
+            <div class="col">
+              <input type="range" class="form-range" id="snout-depth" value="1" min="1" max="6" step="1" disabled>
+              <label for="snout-depth">Length</label>
+            </div>
+            <div class="col">
+              <input type="range" class="form-range" id="snout-offset" value="0" min="0" max="8" step="1" disabled>
+              <label for="snout-offset">Offset</label>
+            </div>
+          </div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="snout" autocomplete="off" disabled>
+            <label class="form-check-label float-start" for="snout">Enable</label>
+            <span id="snout-size" class="float-end" style="visibility: hidden">
                 <span id="snout-width-value">1</span>x<span id="snout-height-value">1</span>x<span id="snout-depth-value">1</span>-0,<span id="snout-offset-value">0</span>
               </span>
-            </div>
-            <hr>
-            <p class="card-text">Chest</p>
-            <label for="chest-size"></label><input type="range" class="form-range" id="chest-size" value="1" min="1" max="128" step="1" disabled>
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="chest" autocomplete="off" disabled>
-              <label class="form-check-label float-start" for="chest">Enable</label>
-            </div>
           </div>
-          <div class="card-footer">
-            Stored in the skin. Changing options here will update the magic pixels in the skin above.
+          <hr>
+          <p class="card-text">Chest</p>
+          <label for="chest-size"></label><input type="range" class="form-range" id="chest-size" value="1" min="1" max="128" step="1" disabled>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="chest" autocomplete="off" disabled>
+            <label class="form-check-label float-start" for="chest">Enable</label>
           </div>
         </div>
-        <div class="row g-3 mb-3">
-          <div class="col">
-            <div class="card h-100 text-center">
-              <div class="card-header">
-                Wings
-              </div>
-              <div class="card-body">
-                <div class="row g-2 mb-3">
-                  <div class="col-md">
-                    <div class="form-floating">
-                      <select disabled class="form-select" id="wings-mode">
-                        <option selected value="red">None</option>
-                        <option value="pink">Symmetric Dual</option>
-                        <option value="green">Symmetric Single</option>
-                        <option value="cyan">Asymmetric Single (Left)</option>
-                        <option value="orange">Asymmetric Single (Right)</option>
-                      </select>
-                      <label for="wings-mode">Wings Mode</label>
-                    </div>
-                  </div>
-                  <div class="col-md">
-                    <div class="form-floating">
-                      <select disabled class="form-select" id="wing-anim">
-                        <option value="blue">Normal</option>
-                        <option selected value="red">None</option>
-                      </select>
-                      <label for="wing-anim">Wing Animations</label>
-                    </div>
+        <div class="card-footer">
+          Stored in the skin. Changing options here will update the magic pixels in the skin above.
+        </div>
+      </div>
+      <div class="row g-3 mb-3">
+        <div class="col">
+          <div class="card h-100 text-center">
+            <div class="card-header">
+              Wings
+            </div>
+            <div class="card-body">
+              <div class="row g-2 mb-3">
+                <div class="col-md">
+                  <div class="form-floating">
+                    <select disabled class="form-select" id="wings-mode">
+                      <option selected value="red">None</option>
+                      <option value="pink">Symmetric Dual</option>
+                      <option value="green">Symmetric Single</option>
+                      <option value="cyan">Asymmetric Single (Left)</option>
+                      <option value="orange">Asymmetric Single (Right)</option>
+                    </select>
+                    <label for="wings-mode">Wings Mode</label>
                   </div>
                 </div>
-                <div class="input-group mb-3">
-                  <input type="file" class="form-control" id="wing-upload" accept="image/png,.png">
-                  <label class="input-group-text" for="wing-upload">Wing texture</label>
-                </div>
-                <canvas id="wings" class="tex mb-2" width="20" height="16"></canvas>
-                <br>
-                <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-outline-primary" onclick="saveCanvasAsImageFile('wings', 'Wings')">Download</button>
-                  <button type="button" class="btn btn-outline-primary" id="remove-wing">Remove</button>
+                <div class="col-md">
+                  <div class="form-floating">
+                    <select disabled class="form-select" id="wing-anim">
+                      <option value="blue">Normal</option>
+                      <option selected value="red">None</option>
+                    </select>
+                    <label for="wing-anim">Wing Animations</label>
+                  </div>
                 </div>
               </div>
-              <div class="card-footer">
-                Must be 20x16 or 12x12
+              <div class="input-group mb-3">
+                <input type="file" class="form-control" id="wing-upload" accept="image/png,.png">
+                <label class="input-group-text" for="wing-upload">Wing texture</label>
+              </div>
+              <canvas id="wings" class="tex mb-2" width="20" height="16"></canvas>
+              <br>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-outline-primary" onclick="saveCanvasAsImageFile('wings', 'Wings')">Download</button>
+                <button type="button" class="btn btn-outline-primary" id="remove-wing">Remove</button>
               </div>
             </div>
-          </div>
-          <div class="col">
-            <div class="card h-100 text-center">
-              <div class="card-header">
-                <div class="form-check form-switch">
-                  <input class="form-check-input float-start" type="checkbox" role="switch" id="cape-enabled" autocomplete="off">
-                  <label class="form-check-label" for="cape-enabled">Cape</label>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="input-group mb-3">
-                  <input type="file" class="form-control" id="cape-upload" accept="image/png,.png">
-                  <label class="input-group-text" for="cape-upload">Cape texture</label>
-                </div>
-                <canvas id="cape" class="tex mb-2" width="20" height="16"></canvas>
-                <br>
-                <button type="button" class="btn btn-outline-primary" onclick="saveCanvasAsImageFile('cape', 'Cape')">Download</button>
-              </div>
-              <div class="card-footer">
-                Must be 20x16 (Ears format) or 64x32 (Mojang format)<br/>Mojang format capes will be converted to Ears format.
-              </div>
+            <div class="card-footer">
+              Stored in the skin. Must be 20x16 or 12x12
             </div>
           </div>
         </div>
+        <div class="col">
+          <div class="card h-100 text-center">
+            <div class="card-header">
+              <div class="form-check form-switch">
+                <input class="form-check-input float-start" type="checkbox" role="switch" id="cape-enabled" autocomplete="off">
+                <label class="form-check-label" for="cape-enabled">Cape</label>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="input-group mb-3">
+                <input type="file" class="form-control" id="cape-upload" accept="image/png,.png">
+                <label class="input-group-text" for="cape-upload">Cape texture</label>
+              </div>
+              <canvas id="cape" class="tex mb-2" width="20" height="16"></canvas>
+              <br>
+              <button type="button" class="btn btn-outline-primary" onclick="saveCanvasAsImageFile('cape', 'Cape')">Download</button>
+            </div>
+            <div class="card-footer">
+              Stored in the skin. Must be 20x16 (Ears format) or 64x32 (Mojang format)<br/>Mojang format capes will be converted to Ears format.
+            </div>
+          </div>
+        </div>
+      </div>
 
-        <div class="card mb-3" style="display: none" id="notice-menu">
-          <div class="card-body">
-            <div class="alert alert-info" role="alert" style="display: none" id="alfalfa-notice">
-              <h4 class="alert-heading">There is data encoded in the alpha channel of the skin.</h4>
-              <p>This may cause some skin viewers to show corrupted pixels, but will not affect the skin's appearance in-game.</p>
-              <div id="alfalfa-notice-unneeded">
-                <hr>
-                <p class="mb-0">However, no options are enabled that use this data. You can <button id="remove-alfalfa">remove it</button> if you wish.</p>
-              </div>
-            </div>
-            <div class="alert alert-light" role="alert" style="display: none" id="req-121-notice">
-              <h4 class="alert-heading">Selected options require new features added in v1.2.1.</h4>
-              <p>Before v1.2.1, Cross ears mode will not render.</p>
-            </div>
-            <div class="alert alert-light" role="alert" style="display: none" id="req-122-notice">
-              <h4 class="alert-heading">Selected options require new features added in v1.2.2.</h4>
-              <p>Before v1.2.2, any custom first tail bend angle will be treated as 0°.</p>
-            </div>
-            <div class="alert alert-light" role="alert" style="display: none" id="req-123-notice">
-              <h4 class="alert-heading">Selected options require new features added in v1.2.3.</h4>
-              <p>Before v1.2.3, Out ears mode will not render.</p>
-              <span id="out-anchor-back">As you're usingan Ear Anchor of "Back", you may use the legacy Behind ears mode instead for compatibility.</span>
-            </div>
-            <div class="alert alert-light" role="alert" style="display: none" id="req-124-notice">
-              <h4 class="alert-heading">Selected options require new features added in v1.2.4.</h4>
-              <p>Before v1.2.4, Vertical tail mode will not render.</p>
-            </div>
-            <div class="alert alert-danger" role="alert" style="display: none" id="req-130-notice">
-              <h4 class="alert-heading">Selected options require new features added in v1.3.0.</h4>
-              <p>Before v1.3.0, <span id="req-130-snouts">snouts</span><span id="req-130-and"> and </span><span id="req-130-chest">chests</span> will not render.</p>
-            </div>
-            <div class="alert alert-danger" role="alert" style="display: none" id="req-140-notice">
-              <h4 class="alert-heading">Selected options require new features added in v1.4.0.</h4>
-              <p>Before v1.4.0, wings will not render.</p>
-            </div>
-            <div class="alert alert-danger" role="alert" style="display: none" id="req-141-notice">
-              <h4 class="alert-heading">Selected options require new features added in v1.4.1.</h4>
-              Before v1.4.1:
-              <ul>
-                <li id="tall-ears-mode">Tall ears mode will not render</li>
-                <li id="wing-anim-off">Wing animations cannot be disabled</li>
-              </ul>
-            </div>
-            <div class="alert alert-danger" role="alert" style="display: none" id="req-145-notice">
-              <h4 class="alert-heading">Selected options require new features added in v1.4.5.</h4>
-              <p>Before v1.4.5, capes will not render.</p>
-            </div>
-            <div class="alert alert-warning" role="alert" style="display: none" id="bug-122-notice">
-              <h4 class="alert-heading">Selected options had bugs fixed in v1.2.2.</h4>
-              Before v1.2.2:
-              <ul>
-                <li id="sides-bad-uvs">Sides, Floppy, and Behind modes had their back face texture locations swapped</li>
-                <li id="around-bad-uvs">Around mode had the backs of the sides flipped horizontally</li>
-              </ul>
-            </div>
-            <div class="alert alert-warning" role="alert" style="display: none" id="bug-123-notice">
-              <h4 class="alert-heading">Selected options had bugs fixed in v1.2.3.</h4>
-              Before v1.2.3:
-              <ul>
-                <li id="claws-bad-pos">Claws rendered one pixel off on the left arm for slim models</li>
-              </ul>
-            </div>
-            <div class="alert alert-warning" role="alert" style="display: none" id="bug-140-notice">
-              <h4 class="alert-heading">Selected options had bugs fixed in v1.4.0.</h4>
-              Before v1.4.0:
-              <ul>
-                <li id="chest-clip">Chests rendered through chestplates</li>
-                <li id="claws-clip">Feet claws rendered through boots</li>
-              </ul>
+      <div class="card mb-3" style="display: none" id="notice-menu">
+        <div class="card-body">
+          <div class="alert alert-info" role="alert" style="display: none" id="alfalfa-notice">
+            <h4 class="alert-heading">There is data encoded in the alpha channel of the skin.</h4>
+            <p>This may cause some skin viewers to show corrupted pixels, but will not affect the skin's appearance in-game.</p>
+            <div id="alfalfa-notice-unneeded">
+              <hr>
+              <p class="mb-0">However, no options are enabled that use this data. You can <button id="remove-alfalfa">remove it</button> if you wish.</p>
             </div>
           </div>
-        </div>
-        <div class="card mb-3">
-          <div class="card-body">
-            <p class="card-text">
-              Copyright &copy; 2021-2022 <a class="link-info" href="https://unascribed.com">Una "unascribed" Thompson</a><br/>
-              This webpage and the code therein (excluding three.js and the TeaVM runtime) is licensed under the <a class="link-info" href="https://github.com/unascribed/Ears/blob/trunk/LICENSE">MIT License</a><br/>
-              Powered by <a class="link-info" href="https://threejs.org">three.js</a> and <a class="link-info" href="https://teavm.org">TeaVM</a><br/>
-              Sample skins are licensed under the <a class="link-info" href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>
-            </p>
+          <div class="alert alert-light" role="alert" style="display: none" id="req-121-notice">
+            <h4 class="alert-heading">Selected options require new features added in v1.2.1.</h4>
+            <p>Before v1.2.1, Cross ears mode will not render.</p>
+          </div>
+          <div class="alert alert-light" role="alert" style="display: none" id="req-122-notice">
+            <h4 class="alert-heading">Selected options require new features added in v1.2.2.</h4>
+            <p>Before v1.2.2, any custom first tail bend angle will be treated as 0°.</p>
+          </div>
+          <div class="alert alert-light" role="alert" style="display: none" id="req-123-notice">
+            <h4 class="alert-heading">Selected options require new features added in v1.2.3.</h4>
+            <p>Before v1.2.3, Out ears mode will not render.</p>
+            <span id="out-anchor-back">As you're usingan Ear Anchor of "Back", you may use the legacy Behind ears mode instead for compatibility.</span>
+          </div>
+          <div class="alert alert-light" role="alert" style="display: none" id="req-124-notice">
+            <h4 class="alert-heading">Selected options require new features added in v1.2.4.</h4>
+            <p>Before v1.2.4, Vertical tail mode will not render.</p>
+          </div>
+          <div class="alert alert-danger" role="alert" style="display: none" id="req-130-notice">
+            <h4 class="alert-heading">Selected options require new features added in v1.3.0.</h4>
+            <p>Before v1.3.0, <span id="req-130-snouts">snouts</span><span id="req-130-and"> and </span><span id="req-130-chest">chests</span> will not render.</p>
+          </div>
+          <div class="alert alert-danger" role="alert" style="display: none" id="req-140-notice">
+            <h4 class="alert-heading">Selected options require new features added in v1.4.0.</h4>
+            <p>Before v1.4.0, wings will not render.</p>
+          </div>
+          <div class="alert alert-danger" role="alert" style="display: none" id="req-141-notice">
+            <h4 class="alert-heading">Selected options require new features added in v1.4.1.</h4>
+            Before v1.4.1:
+            <ul>
+              <li id="tall-ears-mode">Tall ears mode will not render</li>
+              <li id="wing-anim-off">Wing animations cannot be disabled</li>
+            </ul>
+          </div>
+          <div class="alert alert-danger" role="alert" style="display: none" id="req-145-notice">
+            <h4 class="alert-heading">Selected options require new features added in v1.4.5.</h4>
+            <p>Before v1.4.5, capes will not render.</p>
+          </div>
+          <div class="alert alert-warning" role="alert" style="display: none" id="bug-122-notice">
+            <h4 class="alert-heading">Selected options had bugs fixed in v1.2.2.</h4>
+            Before v1.2.2:
+            <ul>
+              <li id="sides-bad-uvs">Sides, Floppy, and Behind modes had their back face texture locations swapped</li>
+              <li id="around-bad-uvs">Around mode had the backs of the sides flipped horizontally</li>
+            </ul>
+          </div>
+          <div class="alert alert-warning" role="alert" style="display: none" id="bug-123-notice">
+            <h4 class="alert-heading">Selected options had bugs fixed in v1.2.3.</h4>
+            Before v1.2.3:
+            <ul>
+              <li id="claws-bad-pos">Claws rendered one pixel off on the left arm for slim models</li>
+            </ul>
+          </div>
+          <div class="alert alert-warning" role="alert" style="display: none" id="bug-140-notice">
+            <h4 class="alert-heading">Selected options had bugs fixed in v1.4.0.</h4>
+            Before v1.4.0:
+            <ul>
+              <li id="chest-clip">Chests rendered through chestplates</li>
+              <li id="claws-clip">Feet claws rendered through boots</li>
+            </ul>
           </div>
         </div>
       </div>
-      <div class="col">
-        <div id="three"></div>
+      <div class="card text-center mb-3">
+        <div class="card-header">
+          Vanilla Skin Customization
+        </div>
+        <div class="card-body">
+          <div class="btn-group mb-1" role="group">
+            <input type="checkbox" class="btn-check" id="slim-enabled" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="slim-enabled">Slim Arms</label>
+          </div>
+          <div class="btn-group mb-1" role="group">
+            <input type="checkbox" class="btn-check" id="head2-enabled" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="head2-enabled">Hat</label>
+
+            <input type="checkbox" class="btn-check" id="torso2-enabled" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="torso2-enabled">Jacket</label>
+          </div>
+          <div class="btn-group mb-1" role="group">
+            <input type="checkbox" class="btn-check" id="left_arm2-enabled" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="left_arm2-enabled">Left Sleeve</label>
+
+            <input type="checkbox" class="btn-check" id="right_arm2-enabled" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="right_arm2-enabled">Right Sleeve</label>
+          </div>
+          <div class="btn-group mb-1" role="group">
+            <input type="checkbox" class="btn-check" id="left_leg2-enabled" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="left_leg2-enabled">Left Pants Leg</label>
+
+            <input type="checkbox" class="btn-check" id="right_leg2-enabled" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="right_leg2-enabled">Right Pants Leg</label>
+          </div>
+        </div>
+        <div class="card-footer">
+          Not stored in the skin. Only affects the render on the right.
+        </div>
+      </div>
+      <div class="card mb-3">
+        <div class="card-body">
+          <p class="card-text">
+            Copyright &copy; 2021-2022 <a class="link-info" href="https://unascribed.com">Una "unascribed" Thompson</a><br/>
+            This webpage and the code therein (excluding three.js and the TeaVM runtime) is licensed under the <a class="link-info" href="https://github.com/unascribed/Ears/blob/trunk/LICENSE">MIT License</a><br/>
+            Powered by <a class="link-info" href="https://threejs.org">three.js</a> and <a class="link-info" href="https://teavm.org">TeaVM</a><br/>
+            Sample skins are licensed under the <a class="link-info" href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a><br/>
+            Source code for this manipulator is available on <a class="link-info" href="https://github.com/DearFox/Beta-Ears">GitHub</a>.
+          </p>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="toast-container position-fixed bottom-0 end-0 p-3">
-    <div id="error-toast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="d-flex">
-        <div class="toast-body" id="error-toast-text">Error!</div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
+    <div class="col">
+      <div id="three"></div>
     </div>
   </div>
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/jszip.min.js"></script>
-  <script src="js/WebGL.js"></script>
-  <script src="js/three.min.js"></script>
-  <script src="js/ears-common.js?v=1.4.5"></script>
-  <script src="js/main.js"></script>
+</div>
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="error-toast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" id="error-toast-text">Error!</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jszip.min.js"></script>
+<script src="js/WebGL.js"></script>
+<script src="js/three.min.js"></script>
+<script src="js/ears-common.js?v=1.4.5"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
