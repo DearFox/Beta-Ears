@@ -61,6 +61,18 @@ SOFTWARE.
     function saveSkinNoAlfalfaData() {
       saveImage(getSkinNoAlfalfaData(), "SkinNoAlpha");
     }
+    function nickacBlockbenchModelGeneratorURLOpen() {
+      var BaseURL = "https://ears.nickac.dev/tools/bbmodel-generator?base64="
+      var Base64Skin = skin.toDataURL().replaceAll("data:image/png;base64,", "").replaceAll("+", "-").replaceAll("/", "_")
+      var URLRes = ""
+      if (document.getElementById("slim-enabled").checked ) {
+        URLRes = BaseURL + Base64Skin + "&slim"
+      } else {
+        URLRes = BaseURL + Base64Skin
+      }
+      console.log(URLRes)
+      window.open(URLRes,'_blank')
+    }
 
     function saveAllToZip() {
       let zip = new JSZip();
@@ -91,7 +103,7 @@ SOFTWARE.
 <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top mb-3">
   <div class="container-fluid">
       <span class="navbar-brand mb-0 h1">
-        Ears Skin Manipulator edit by DearFox & Furrc
+        Ears Skin Manipulator edit by DearFox & Furrc & sisby-folk
         <span id="version"></span>
       </span>
     <form class="d-flex">
@@ -141,8 +153,12 @@ SOFTWARE.
           <canvas id="skin" class="tex mb-2" width="64" height="64"></canvas>
           <br>
           <div class="btn-group" role="group">
-            <button type="button" class="btn btn-outline-primary" onclick="saveCanvasAsImageFile('skin', 'Skin')">Download</button>
-            <button type="button" class="btn btn-outline-primary" onclick="saveSkinNoAlfalfaData()">Download no alfalfaData</button>
+            <button type="button" class="btn btn-outline-primary" onclick="saveCanvasAsImageFile('skin', 'Skin')">Download Skin</button>
+          </div><br>
+          <h5>Other:</h5>
+          <div class="btn-group" role="group">
+            <button type="button" title="Opens the Blockbench Model Generator from NickAc in a new window" class="btn btn-outline-primary" onclick="nickacBlockbenchModelGeneratorURLOpen()">Download BBModel</button>
+            <button type="button" class="btn btn-outline-primary" onclick="saveSkinNoAlfalfaData()">Download Skin no alfalfa</button>
             <button type="button" class="btn btn-outline-primary" onclick="saveAllToZip()">Save to ZIP</button>
           </div>
         </div>
