@@ -92,6 +92,7 @@ let tailBendAngles = [$("#tail-bend-0-angle"), $("#tail-bend-1-angle"), $("#tail
 
 let buttonSampleSkin = $("#sample");
 let buttonSampleEars = $("#sample-preserve");
+let selectSampleTexture = $("#sample-texture");
 
 function toggleEarsEnabled() {
     let en = $("#ears-enabled").checked;
@@ -279,8 +280,8 @@ wireElement("wing-anim", 9);
 wireElement("cape-enabled", -1);
 wireElement("cape-upload", -1);
 async function updateSkin() {
-    buttonSampleSkin.classList.remove("btn-light")
-    buttonSampleEars.classList.remove("btn-light")
+    buttonSampleSkin.classList.remove("btn-primary")
+    buttonSampleEars.classList.remove("btn-primary")
     usingSample = false;
     usingSampleWing = false;
     usingSampleCape = false;
@@ -629,7 +630,30 @@ function rebuildSampleSkin() {
         let img = new Image();
         img.onload = async () => {
             let ctx = $("#skin").getContext("2d");
-            if (!samplePreservesBase) {
+            if (samplePreservesBase) {
+                // Head Row
+                ctx.clearRect(0, 0, 8, 8);
+                ctx.clearRect(24, 0, 16, 8);
+                ctx.clearRect(56, 30, 8, 16);
+                ctx.clearRect(56, 0, 8, 8);
+                // Torso Row
+                ctx.clearRect(0, 16, 4, 4);
+                ctx.clearRect(12, 16, 8, 4);
+                ctx.clearRect(36, 16, 8, 4);
+                ctx.clearRect(52, 16, 4, 4);
+                // Jacket Row
+                ctx.clearRect(12, 32, 8, 4);
+                ctx.clearRect(36, 32, 8, 4);
+                ctx.clearRect(52, 32, 4, 4);
+                // Legs Row
+                ctx.clearRect(0, 48, 4, 4);
+                ctx.clearRect(12, 48, 8, 4);
+                ctx.clearRect(28, 48, 8, 4);
+                ctx.clearRect(44, 48, 8, 4);
+                ctx.clearRect(60, 48, 4, 4);
+                // RHS
+                ctx.clearRect(56, 16, 8, 32)
+            } else {
                 ctx.clearRect(4, 0, 60, 64);
                 ctx.clearRect(0, 0, 4, 32);
                 ctx.clearRect(0, 36, 4, 28);
@@ -660,7 +684,8 @@ function rebuildSampleSkin() {
             if (earMode === "blue") {
                 ctx.drawImage(img, 192, 0, 64, 64, 0, 0, 64, 64);
             } else if (earMode === "cyan") {
-                ctx.drawImage(img, 0, 64, 64, 64, 0, 0, 64, 64);
+                ctx.drawImage(img, 8, 64, 56, 8, 8, 0, 56, 8);
+                ctx.drawImage(img, 0, 72, 64, 56, 0, 8, 64, 56);
             } else if (earMode === "green" || earMode == "purple" || earMode == "orange" || earMode == "pink" || earMode === "purple2") {
                 ctx.drawImage(img, 64, 64, 64, 64, 0, 0, 64, 64);
             } else if (earMode === "white" || earMode === "gray") {
@@ -679,25 +704,24 @@ function rebuildSampleSkin() {
             if ($("#snout").checked) {
                 let width = Number($("#snout-width").value);
                 let height = Number($("#snout-height").value);
-                let depth = Number($("#snout-depth").value);
-                ctx.fillStyle = '#FF0000';
-                ctx.fillRect(0, 0, width, 1);
-                ctx.fillStyle = '#FFAA00';
-                ctx.fillRect(0, 1, width, 1);
-                ctx.fillStyle = '#FFFFFF';
-                ctx.fillRect(0, 2, width, height);
-                ctx.fillStyle = '#FF00FF';
-                ctx.fillRect(0, 2+height, width, 1);
-                ctx.fillStyle = '#00FFFF';
-                ctx.fillRect(0, 2+height+1, width, 1);
-                ctx.fillStyle = '#00FF00';
-                ctx.fillRect(7, 0, 1, height);
-                ctx.fillStyle = '#0000FF';
-                ctx.fillRect(7, 4, 1, height);
-                ctx.fillStyle = '#FFFFFF';
+                ctx.drawImage(img, 0, 64, width, 1, 0, 0, width, 1);
+                ctx.drawImage(img, 0, 65, width, 1, 0, 1, width, 1);
+                // Special handling to "crunch" front face
+                let firstHalfWidth = Math.floor(width / 2);
+                let secondHalfWidth = width - firstHalfWidth;
+                ctx.drawImage(img, 3 - firstHalfWidth, 66, firstHalfWidth, height, 0, 2, firstHalfWidth, height);
+                ctx.drawImage(img, 3 + ((width + 1) % 2), 66, secondHalfWidth, height, firstHalfWidth, 2, secondHalfWidth, height);
+                ctx.drawImage(img, 0, 70, width, 1, 0, 2 + height, width, 1);
+                ctx.drawImage(img, 0, 71, width, 1, 0, 3 + height, width, 1);
+                ctx.drawImage(img, 7, 64, 1, 4, 7, 0, 1, 4);
+                ctx.drawImage(img, 7, 68, 1, 4, 7, 4, 1, 4);
             }
             if ($("#chest").checked) {
-                ctx.drawImage(img, 64, 128, 64, 64, 0, 0, 64, 64);
+                if (samplePreservesBase) {
+                    ctx.drawImage(img, 64, 160, 64, 32, 0, 32, 64, 32);
+                } else {
+                    ctx.drawImage(img, 64, 128, 64, 64, 0, 0, 64, 64);
+                }
             }
             if (usingSampleWing) {
                 let wingsCtx = $("#wings").getContext("2d");
@@ -736,7 +760,7 @@ function rebuildSampleSkin() {
             resolve();
         };
         img.onerror = reject;
-        img.src = 'resources/sample_skin_atlas.png';
+        img.src = 'resources/samples/' + selectSampleTexture.value + '.png';
     });
 }
 
@@ -809,9 +833,9 @@ function randhex(count) {
     return ("00000000"+scratchTarr[0].toString(16)).slice(-count);
 }
 buttonSampleSkin.addEventListener('click', () => {
-    buttonSampleEars.classList.remove("btn-light")
-    buttonSampleSkin.classList.remove("btn-light")
-    buttonSampleSkin.classList.add("btn-light")
+    buttonSampleEars.classList.remove("btn-primary")
+    buttonSampleSkin.classList.remove("btn-primary")
+    buttonSampleSkin.classList.add("btn-primary")
     $("#ears-enabled").checked = true;
     samplePreservesBase = false;
     usingSample = true;
@@ -820,14 +844,17 @@ buttonSampleSkin.addEventListener('click', () => {
     toggleEarsEnabled();
 });
 buttonSampleEars.addEventListener('click', () => {
-    $("#sample").classList.remove("btn-light")
-    buttonSampleEars.classList.remove("btn-light")
-    buttonSampleEars.classList.add("btn-light")
+    $("#sample").classList.remove("btn-primary")
+    buttonSampleEars.classList.remove("btn-primary")
+    buttonSampleEars.classList.add("btn-primary")
     $("#ears-enabled").checked = true;
     samplePreservesBase = true;
     usingSample = true;
     usingSampleWing = true;
     usingSampleCape = true;
+    toggleEarsEnabled();
+});
+selectSampleTexture.addEventListener('click', () => {
     toggleEarsEnabled();
 });
 $("#slim-enabled").addEventListener("change", (e) => {

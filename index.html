@@ -133,10 +133,6 @@ SOFTWARE.
           Skin Setup
         </div>
         <div class="card-body">
-          <p>
-            If you'd like to add ears parts to a vanilla skin, add it below and click "Sample Ears".<br/>
-            If you'd like to draw a full skin from scratch, click "Sample Skin" for a helpful template.
-          </p>
           <div class="input-group mb-3">
             <label class="input-group-text" for="nickname">Get skin by nickname</label>
             <input type="text" class="form-control" placeholder="nickname" aria-label="nickname" id="nickname">
@@ -147,9 +143,20 @@ SOFTWARE.
           </div>
           <div class="input-group mb-3">
             <input type="file" class="form-control" id="skin-upload" accept="image/png,.png">
+          </div>
+          <p>
+            If you'd like to add ears parts to a vanilla skin, load it above and click "Sample Ears".<br/>
+            If you'd like to draw a full skin from scratch, click "Sample Skin" for a helpful template.
+          </p>
+          <div class="input-group mb-3">
+            <select class="form-select" aria-label="Sample Texture" id="sample-texture">
+              <option selected value="squares_template">Coloured Squares Template</option>
+              <option value="fox">Fox Ears Set (CC-BY-SA by DearFox)</option>
+            </select>
             <button class="btn btn-outline-secondary" type="button" id="sample-preserve">Sample ears</button>
             <button class="btn btn-outline-secondary" type="button" id="sample">Sample skin</button>
           </div>
+
           <canvas id="skin" class="tex mb-2" width="64" height="64"></canvas>
           <br>
           <div class="btn-group" role="group">
@@ -336,7 +343,9 @@ SOFTWARE.
               </div>
             </div>
             <div class="card-footer">
-              Stored in the skin. Must be 20x16 or 12x12
+              Stored in the skin's alpha channel.<br/>
+              Edit this texture individually first.<br/>
+              Must be 20x16 or 12x12.
             </div>
           </div>
         </div>
@@ -358,7 +367,9 @@ SOFTWARE.
               <button type="button" class="btn btn-outline-primary" onclick="saveCanvasAsImageFile('cape', 'Cape')">Download</button>
             </div>
             <div class="card-footer">
-              Stored in the skin. Must be 20x16 (Ears format) or 64x32 (Mojang format)<br/>Mojang format capes will be converted to Ears format.
+              Stored in the skin.<br/>
+              Must be 20x16 (Ears format) or 64x32 (Mojang format)<br/>
+              Mojang format capes will be converted to Ears format.
             </div>
           </div>
         </div>
