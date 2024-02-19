@@ -1,0 +1,33 @@
+.tex {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAQMAAAD+wSzIAAAABlBMVEVmZmaZmZmoZ+Z2AAAAD0lEQVQIW2PkZ4TADxAIABIoBAXF3RsYAAAAAElFTkSuQmCC');
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: pixelated;
+}
+
+a:link, a:visited {
+    text-decoration: none;
+}
+
+#three {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1019
+}
+
+#skin {
+    width: 128px;
+    height: 128px;
+}
+
+#wings {
+    width: 40px;
+    height: 32px;
+}
+
+#cape {
+    width: 40px;
+    height: 32px;
+}
