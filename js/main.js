@@ -684,8 +684,8 @@ function rebuildSampleSkin() {
             if (earMode === "blue") {
                 ctx.drawImage(img, 192, 0, 64, 64, 0, 0, 64, 64);
             } else if (earMode === "cyan") {
-                ctx.drawImage(img, 8, 0, 64, 8, 8, 0, 64, 8);
-                ctx.drawImage(img, 0, 8, 64, 56, 0, 8, 64, 56);
+                ctx.drawImage(img, 8, 64, 56, 8, 8, 0, 56, 8);
+                ctx.drawImage(img, 0, 72, 64, 56, 0, 8, 64, 56);
             } else if (earMode === "green" || earMode == "purple" || earMode == "orange" || earMode == "pink" || earMode === "purple2") {
                 ctx.drawImage(img, 64, 64, 64, 64, 0, 0, 64, 64);
             } else if (earMode === "white" || earMode === "gray") {
