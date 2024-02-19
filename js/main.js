@@ -82,12 +82,34 @@ function decodeDegrees(val) {
     return (deg/128)*90;
 }
 
+let samplePreservesBase = false;
 let usingSample = false;
 let usingSampleWing = false;
 let usingSampleCape = false;
 let earsElements = [];
 let tailBends = [$("#tail-bend-0"), $("#tail-bend-1"), $("#tail-bend-2"), $("#tail-bend-3")];
 let tailBendAngles = [$("#tail-bend-0-angle"), $("#tail-bend-1-angle"), $("#tail-bend-2-angle"), $("#tail-bend-3-angle")];
+
+let buttonSampleSkin = $("#sample");
+let buttonSampleEars = $("#sample-preserve");
+
+function toggleEarsEnabled() {
+    let en = $("#ears-enabled").checked;
+    let ctx = $("#skin").getContext("2d");
+    if (en) {
+        ctx.fillStyle = magicPixelValues.blue;
+        ctx.fillRect(0, 32, 4, 4);
+    } else {
+        ctx.clearRect(0, 32, 4, 4);
+    }
+    earsElements.forEach((e) => {
+        e.ele.disabled = !en;
+        if (en) {
+            e.ele.dispatchEvent(new CustomEvent("input"));
+        }
+    });
+    rebuild();
+}
 
 function updateNotices() {
     // TODO this is a huge mess\
@@ -257,6 +279,8 @@ wireElement("wing-anim", 9);
 wireElement("cape-enabled", -1);
 wireElement("cape-upload", -1);
 async function updateSkin() {
+    buttonSampleSkin.classList.remove("btn-light")
+    buttonSampleEars.classList.remove("btn-light")
     usingSample = false;
     usingSampleWing = false;
     usingSampleCape = false;
@@ -597,51 +621,40 @@ function encodeToAlfalfa(id, sel) {
     encodeAlfalfa();
 }
 $("#ears-enabled").addEventListener('input', () => {
-    let en = $("#ears-enabled").checked;
-    let ctx = $("#skin").getContext("2d");
-    if (en) {
-        ctx.fillStyle = magicPixelValues.blue;
-        ctx.fillRect(0, 32, 4, 4);
-    } else {
-        ctx.clearRect(0, 32, 4, 4);
-    }
-    earsElements.forEach((e) => {
-        e.ele.disabled = !en;
-        if (en) {
-            e.ele.dispatchEvent(new CustomEvent("input"));
-        }
-    });
-    rebuild();
+    toggleEarsEnabled()
 });
+
 function rebuildSampleSkin() {
     return new Promise((resolve, reject) => {
         let img = new Image();
         img.onload = async () => {
             let ctx = $("#skin").getContext("2d");
-            ctx.clearRect(4, 0, 60, 64);
-            ctx.clearRect(0, 0, 4, 32);
-            ctx.clearRect(0, 36, 4, 28);
-            ctx.drawImage(img, 0, 0, 64, 64, 0, 0, 64, 64);
-            let slim = $("#slim-enabled").checked;
-            ctx.drawImage(img, slim ? 128 : 64, 0, 64, 64, 0, 0, 64, 64);
-            if (!$("#head2-enabled").checked) {
-                ctx.clearRect(32, 0, 32, 16);
-            }
-            if (!$("#torso2-enabled").checked) {
-                ctx.clearRect(16, 32, 24, 16);
-            }
-            if (!$("#left_arm2-enabled").checked) {
-                ctx.clearRect(48, 48, 16, 16);
-            }
-            if (!$("#right_arm2-enabled").checked) {
-                ctx.clearRect(40, 32, 16, 16);
-            }
-            if (!$("#left_leg2-enabled").checked) {
-                ctx.clearRect(0, 48, 16, 16);
-            }
-            if (!$("#right_leg2-enabled").checked) {
-                ctx.clearRect(4, 32, 12, 16);
-                ctx.clearRect(0, 36, 4, 12);
+            if (!samplePreservesBase) {
+                ctx.clearRect(4, 0, 60, 64);
+                ctx.clearRect(0, 0, 4, 32);
+                ctx.clearRect(0, 36, 4, 28);
+                ctx.drawImage(img, 0, 0, 64, 64, 0, 0, 64, 64);
+                let slim = $("#slim-enabled").checked;
+                ctx.drawImage(img, slim ? 128 : 64, 0, 64, 64, 0, 0, 64, 64);
+                if (!$("#head2-enabled").checked) {
+                    ctx.clearRect(32, 0, 32, 16);
+                }
+                if (!$("#torso2-enabled").checked) {
+                    ctx.clearRect(16, 32, 24, 16);
+                }
+                if (!$("#left_arm2-enabled").checked) {
+                    ctx.clearRect(48, 48, 16, 16);
+                }
+                if (!$("#right_arm2-enabled").checked) {
+                    ctx.clearRect(40, 32, 16, 16);
+                }
+                if (!$("#left_leg2-enabled").checked) {
+                    ctx.clearRect(0, 48, 16, 16);
+                }
+                if (!$("#right_leg2-enabled").checked) {
+                    ctx.clearRect(4, 32, 12, 16);
+                    ctx.clearRect(0, 36, 4, 12);
+                }
             }
             let earMode = $("#ear-mode").value;
             if (earMode === "blue") {
@@ -795,11 +808,27 @@ function randhex(count) {
     crypto.getRandomValues(scratchTarr);
     return ("00000000"+scratchTarr[0].toString(16)).slice(-count);
 }
-$("#sample").addEventListener('click', () => {
+buttonSampleSkin.addEventListener('click', () => {
+    buttonSampleEars.classList.remove("btn-light")
+    buttonSampleSkin.classList.remove("btn-light")
+    buttonSampleSkin.classList.add("btn-light")
+    $("#ears-enabled").checked = true;
+    samplePreservesBase = false;
     usingSample = true;
     usingSampleWing = true;
     usingSampleCape = true;
-    rebuild();
+    toggleEarsEnabled();
+});
+buttonSampleEars.addEventListener('click', () => {
+    $("#sample").classList.remove("btn-light")
+    buttonSampleEars.classList.remove("btn-light")
+    buttonSampleEars.classList.add("btn-light")
+    $("#ears-enabled").checked = true;
+    samplePreservesBase = true;
+    usingSample = true;
+    usingSampleWing = true;
+    usingSampleCape = true;
+    toggleEarsEnabled();
 });
 $("#slim-enabled").addEventListener("change", (e) => {
     rebuild();
@@ -1172,16 +1201,6 @@ if (WEBGL.isWebGLAvailable()) {
         0, 48,
         true,
         0, 0, 0));
-
-    $("#slim-enabled").addEventListener("change", (e) => {
-        scene.remove(meshes["left_arm"]);
-        scene.remove(meshes["left_arm2"]);
-        scene.remove(meshes["right_arm"]);
-        scene.remove(meshes["right_arm2"]);
-        addArms();
-        rebuildQuads();
-        if (rebuildGeom) rebuildGeom();
-    });
 
     function convertUV(arr) {
         return new THREE.Vector2(arr[0], 1-arr[1]);
