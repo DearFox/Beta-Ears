@@ -1202,6 +1202,16 @@ if (WEBGL.isWebGLAvailable()) {
         true,
         0, 0, 0));
 
+    $("#slim-enabled").addEventListener("change", (e) => {
+        scene.remove(meshes["left_arm"]);
+        scene.remove(meshes["left_arm2"]);
+        scene.remove(meshes["right_arm"]);
+        scene.remove(meshes["right_arm2"]);
+        addArms();
+        rebuildQuads();
+        if (rebuildGeom) rebuildGeom();
+    });
+
     function convertUV(arr) {
         return new THREE.Vector2(arr[0], 1-arr[1]);
     }
